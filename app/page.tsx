@@ -13,17 +13,42 @@ export default function Home() {
   return (
     <main>
       <nav className="nav shell">
-        <a className="brand" href="#home"><span>Syntax</span> Opinion <b>Capital</b></a>
-        <div className={`navlinks ${open ? 'show' : ''}`}>
-          <a href="#about" onClick={() => setOpen(false)}>About</a>
-          <a href="#program" onClick={() => setOpen(false)}>Program</a>
-          <a href="#portfolio" onClick={() => setOpen(false)}>Portfolio</a>
-          <a href="#testimonials" onClick={() => setOpen(false)}>Testimonials</a>
-          <a href="#contact" onClick={() => setOpen(false)}>Contact</a>
-        </div>
-        <button className="iconBtn mobile menuFixed" onClick={() => setOpen(!open)} aria-label="Menu">{open ? <X/> : <Menu/>}</button>
-        <a className="navCta desktop" href="#contact">Join Community <ArrowUpRight size={16}/></a>
-      </nav>
+
+  {/* HEADER / SATU GRUP */}
+  <div className="mobileHeader">
+
+    <a className="brand" href="#home">
+      <span>Syntax</span> Opinion <b>Capital</b>
+    </a>
+
+    <div className="mobileHeaderActions">
+
+      <a className="navCta cta" href="#contact">
+        Join Community <ArrowUpRight size={16} />
+      </a>
+
+      <button
+        className="iconBtn mobile"
+        onClick={() => setOpen(!open)}
+        aria-label="Menu"
+      >
+        {open ? <X /> : <Menu />}
+      </button>
+
+    </div>
+
+  </div>
+
+  {/* MENU */}
+  <div className={`navlinks ${open ? "show" : ""}`}>
+    <a href="#about" onClick={() => setOpen(false)}>About</a>
+    <a href="#program" onClick={() => setOpen(false)}>Program</a>
+    <a href="#portfolio" onClick={() => setOpen(false)}>Portfolio</a>
+    <a href="#testimonials" onClick={() => setOpen(false)}>Testimonials</a>
+    <a href="#contact" onClick={() => setOpen(false)}>Contact</a>
+  </div>
+
+</nav>
 
       <section id="home" className="hero shell">
         <div className="heroGlow" />
