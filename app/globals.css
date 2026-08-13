@@ -116,14 +116,36 @@
     display: block;
   }
 
-  /* TOMBOL GARIS 3 / X */
-  .iconBtn.mobile {
-    display: flex !important;
+/* HEADER MOBILE */
+.nav {
     position: fixed !important;
-    top: 16px;
-    right: 16px;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 9999;
+}
+
+.mobileHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.mobileHeaderActions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.iconBtn.mobile {
+    display: flex !important;
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
     z-index: 10001;
-  }
+}
 
   /* ISI MENU */
   .navlinks {
