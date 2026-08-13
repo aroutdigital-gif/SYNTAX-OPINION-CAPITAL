@@ -122,6 +122,7 @@
 .footer{flex-direction:column;gap:18px}.stats{gap:15px}
 .stats span{font-size:9px}}@media(max-width:520px){
 .shell{width:min(100% - 28px,1160px)}
+  
 .programGrid{grid-template-columns:1fr}
   
 .hero{min-height:auto;padding:70px 0 90px}
