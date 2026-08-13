@@ -67,7 +67,7 @@ export default function Home() {
 
       <section id="contact" className="cta shell"><div><span>05 / CONNECT</span><h2>Ready to decode<br/><em>the market?</em></h2><p>Gabung ke ekosistem Syntax Opinion Capital dan bangun proses trading yang lebih terstruktur.</p></div><div className="ctaActions"><a className="primary" href="https://chat.whatsapp.com/HENFN30hQncDK2Rbo0uRmP?s=cl&p=a&ilr=4"
   target="_blank"
-  rel="noopener noreferrer">WhatsApp Community <Send size={17}/></a><a className="secondary" href="https://t.me/" target="_blank">Telegram <ArrowUpRight size={17}/></a><a className="secondary" href="https://www.instagram.com/" target="_blank"><Instagram size={17}/> Instagram</a></div></section>
+  rel="noopener noreferrer">WhatsApp Community <Send size={17}/></a><a className="secondary" <a className="secondary" href="https://www.instagram.com/" target="_blank"><Instagram size={17}/> Instagram</a></div></section>
 
       <footer className="footer shell"><div className="brand"><span>Syntax</span> Opinion <b>Capital</b></div><p>© 2026 Syntax Opinion Capital. Education & community only.</p><div className="social"><a href="#home"><Youtube size={18}/></a><a href="https://www.instagram.com/"><Instagram size={18}/></a><a href="https://t.me/"><Send size={18}/></a></div></footer>
     </main>
