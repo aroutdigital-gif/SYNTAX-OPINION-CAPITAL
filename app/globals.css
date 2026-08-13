@@ -107,7 +107,7 @@
 .mobile{display:none}@media(max-width:850px){
 .desktop{display:none}
 .mobile{display:block}
-.navlinks{display:none;position:absolute;top:72px;left:0;right:0;padding:20px;background:#0b0c10;border:1px solid #252831;border-radius:18px;flex-direction:column}
+.navlinks{display:none;position:fixed;top:72px;left:0;right:0;padding:20px;background:#0b0c10;border:1px solid #252831;border-radius:18px;flex-direction:column}
 .navlinks.show{display:flex}
 .hero{grid-template-columns:1fr;padding:70px 0}
 .hero h1{font-size:51px;letter-spacing:-3px{
