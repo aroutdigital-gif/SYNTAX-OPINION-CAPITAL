@@ -71,7 +71,7 @@ export default function Home() {
   target="_blank"
   rel="noopener noreferrer"
 >
-  Instagram <Instagram size={17} /></a> <a
+  <Instagram size={17} /></a> <a
     className="secondary"
     href="https://www.ultimamarkets-id.com/id/?affid=MjI1OTkyNjc="
     target="_blank"
