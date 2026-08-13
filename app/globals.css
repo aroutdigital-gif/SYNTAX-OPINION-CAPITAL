@@ -106,85 +106,97 @@
 .social a{border:1px solid #242730;border-radius:50%;padding:8px;display:flex}
 .mobile{display:none}
 
-@media (max-width:850px) {
+/* =========================
+   MOBILE NAVIGATION
+   ========================= */
 
+@media (max-width: 850px) {
+
+  /* Desktop navigation tetap normal di desktop */
   .desktopNav {
     display: none !important;
   }
 
-  .mobile {
-    display: block;
-  }
-
-.navCta {
-  padding: 10px 16px !important;
-  font-size: 13px !important;
-  line-height: 1.2 !important;
-  min-height: auto !important;
-  width: auto !important;
-  white-space: nowrap;
-}
-
-.navCta svg {
-  width: 14px;
-  height: 14px;
-}
-
-/* HEADER MOBILE */
-.nav {
-    position: fixed !important;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    z-index: 9999;
-}
-
-.mobileHeader {
+  /* Brand + Join + Menu tetap satu baris */
+  .nav.shell {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
-    width: 100%;
-}
-
-.mobileHeaderActions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.iconBtn.mobile {
-    display: flex !important;
-    position: relative !important;
-    top: auto !important;
-    right: auto !important;
-    z-index: 10001;
-}
-
-  /* ISI MENU */
-  .navlinks {
-    display: none !important;
+    position: relative;
   }
 
-  .navlinks.show {
+  /* Logo */
+  .brand {
+    flex-shrink: 0;
+  }
+
+  /* JOIN COMMUNITY */
+  .navCta {
+    position: fixed !important;
+
+    top: 16px;
+    right: 76px;
+
+    width: 125px !important;
+    min-width: 0 !important;
+    height: 54px !important;
+
+    padding: 0 16px !important;
+
+    border-radius: 30px !important;
+
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 14px !important;
+    line-height: 1.1 !important;
+
+    z-index: 10001;
+  }
+
+  /* Tombol garis tiga */
+  .iconBtn.mobile {
     display: flex !important;
 
     position: fixed !important;
-    top: 72px;
+
+    top: 16px;
+    right: 16px;
+
+    width: 54px !important;
+    height: 54px !important;
+
+    padding: 0 !important;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 10002;
+  }
+
+  /* MENU SAAT DIBUKA */
+  .navlinks.show {
+    position: fixed !important;
+
+    top: 82px;
     left: 16px;
     right: 16px;
 
-    width: auto;
-    max-height: calc(100vh - 88px);
+    width: auto !important;
+    max-height: calc(100vh - 100px);
 
-    padding: 20px;
+    padding: 18px !important;
 
+    display: flex !important;
     flex-direction: column;
+
     gap: 0;
 
     background: #0b0c10 !important;
+
     border: 1px solid #252831;
-    border-radius: 22px;
+    border-radius: 20px;
 
     z-index: 10000;
 
@@ -194,131 +206,48 @@
 
   .navlinks.show a {
     display: block;
+
     width: 100%;
-    padding: 18px 0;
+
+    padding: 15px 4px;
 
     color: #a8abb6;
-    font-size: 16px;
+
+    font-size: 15px;
+
     text-decoration: none;
   }
 
   .navlinks.show a:hover {
     color: white;
   }
+}
 
 
-  /* HERO */
-  .hero {
-    min-height: auto !important;
-    padding: 70px 24px 90px !important;
+/* =========================
+   DESKTOP
+   ========================= */
+
+@media (min-width: 851px) {
+
+  .desktopNav {
+    display: flex !important;
   }
 
-  .hero h1 {
-    font-size: 44px !important;
-    line-height: 1.02;
-    letter-spacing: -2px;
+  .mobile {
+    display: none !important;
   }
 
-  .heroCard {
-    height: 390px !important;
+  .iconBtn.mobile {
+    display: none !important;
   }
 
-  .orb {
-    width: 190px !important;
-    height: 190px !important;
+  .navlinks {
+    display: flex !important;
+    position: static !important;
   }
 
-  .actions {
-    flex-direction: column !important;
-    gap: 12px;
-  }
-
-  .actions a {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-
-  /* ABOUT */
-  .aboutGrid {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 30px !important;
-  }
-
-  .aboutText {
-    width: 100%;
-  }
-
-  .principles {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 14px !important;
-  }
-
-  .principles > div {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-
-  /* PROGRAM */
-  .programGrid {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
-  }
-
-
-  /* PORTFOLIO */
-  .portfolioGrid {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
-  }
-
-
-  /* TESTIMONIAL */
-  .testGrid {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
-  }
-
-
-  /* CTA */
-  .cta {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 20px !important;
-  }
-
-
-  /* GENERAL MOBILE */
-  .section {
-    padding: 80px 0 !important;
-  }
-
-  .sectionHead h2,
-  .cta h2 {
-    font-size: 38px !important;
-  }
-
-  .stats {
-    gap: 15px;
-    flex-wrap: wrap;
-  }
-
-  .shell {
-    width: min(100% - 32px, 1160px);
-  }
-
-  .linkCards {
-    grid-template-columns: 1fr !important;
-  }
-
-  .footer {
-    flex-direction: column;
-    gap: 18px;
+  .navCta {
+    position: static !important;
   }
 }
