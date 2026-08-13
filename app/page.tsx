@@ -71,7 +71,16 @@ export default function Home() {
   target="_blank"
   rel="noopener noreferrer"
 >
-  Instagram <Instagram size={17} /> Instagram</a></div></section>
+  Instagram <Instagram size={17} /> Instagram</a>
+      
+      <a
+    className="secondary"
+    href="LINK_BROKER_KAMU"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Broker <ArrowUpRight size={17} />
+  </a></div></section>
 
       <footer className="footer shell"><div className="brand"><span>Syntax</span> Opinion <b>Capital</b></div><p>© 2026 Syntax Opinion Capital. Education & community only.</p><div className="social"><a href="#home"><Youtube size={18}/></a><a href="https://www.instagram.com/"><Instagram size={18}/></a><a href="https://t.me/"><Send size={18}/></a></div></footer>
     </main>
