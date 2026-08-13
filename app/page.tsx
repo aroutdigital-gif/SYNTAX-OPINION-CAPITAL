@@ -1,4 +1,4 @@
-'use client';
+po 'use client';
 
 import { ArrowUpRight, ChevronRight, Instagram, Menu, Moon, Send, ShieldCheck, TrendingUp, Users, X, Youtube } from 'lucide-react';
 import { useState } from 'react';
