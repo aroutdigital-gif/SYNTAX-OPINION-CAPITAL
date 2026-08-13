@@ -69,12 +69,13 @@ export default function Home() {
   target="_blank"
   rel="noopener noreferrer">WhatsApp Community <Send size={17}/></a> 
   
-  <a className="secondary" href="https://www.instagram.com/ari.sesa?igsh=cnB3czNmenJtM2hs"
+  <a className="secondary" href="https://www.instagram.com/ari.sesa/"
   target="_blank"
   rel="noopener noreferrer"> <Instagram size={17} /></a>
   <a  className="secondary" href="https://ultgo.com/la-com/INDONESIAN/YjwMk56g"
   target="_blank"
-  rel="noopener noreferrer">
+  rel="noopener noreferrer"
+    >
   Open Trading Account <ArrowUpRight size={17} /> </a>
   </</div></section>
 
