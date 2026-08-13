@@ -107,55 +107,182 @@
 .mobile{display:none}
 
 @media (max-width:850px) {
-  .desktop {
-    display:none;
+
+  .desktopNav {
+    display: none !important;
   }
 
   .mobile {
-    display:block;
+    display: block;
+  }
+
+  /* TOMBOL GARIS 3 / X */
+  .iconBtn.mobile {
+    display: flex !important;
+    position: fixed !important;
+    top: 16px;
+    right: 16px;
+    z-index: 10001;
+  }
+
+  /* ISI MENU */
+  .navlinks {
+    display: none !important;
+  }
+
+  .navlinks.show {
+    display: flex !important;
+
+    position: fixed !important;
+    top: 72px;
+    left: 16px;
+    right: 16px;
+
+    width: auto;
+    max-height: calc(100vh - 88px);
+
+    padding: 20px;
+
+    flex-direction: column;
+    gap: 0;
+
+    background: #0b0c10 !important;
+    border: 1px solid #252831;
+    border-radius: 22px;
+
+    z-index: 10000;
+
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+
+  .navlinks.show a {
+    display: block;
+    width: 100%;
+    padding: 18px 0;
+
+    color: #a8abb6;
+    font-size: 16px;
+    text-decoration: none;
+  }
+
+  .navlinks.show a:hover {
+    color: white;
   }
 
 
-.iconBtn.mobile {
-  position: fixed !important;
-  top: 16px;
-  right: 16px;
-  z-index: 9999;
-}
- 
-.navlinks.show {
-    display:flex;
-    position:fixed;
-    top:72px;
-    left:24px;
-    right:24px;
-    z-index:10000;
-    padding:20px;
-    flex-direction:column;
+  /* HERO */
+  .hero {
+    min-height: auto !important;
+    padding: 70px 24px 90px !important;
   }
- } 
-.navlinks.show{display:flex}
-.hero{grid-template-columns:1fr;padding:70px 0}
-.hero h1{font-size:51px;letter-spacing:-3px{
-.heroCard{height:420px}
-.orb{width:210px;height:210px;margin:45px auto 35px}
-.aboutGrid,
-.portfolioGrid,
-.cta{grid-template-columns:1fr;display:grid}
-.programGrid{grid-template-columns:1fr 1fr}
-.testGrid{grid-template-columns:1fr}
-.section{padding:80px 0}.sectionHead h2,.cta h2{font-size:43px}.cta{align-items:start}
-.footer{flex-direction:column;gap:18px}.stats{gap:15px}
-.stats span{font-size:9px}}@media(max-width:520px){
-.shell{width:min(100% - 28px,1160px)}
-  
-.programGrid{grid-template-columns:1fr}
-  
-.hero{min-height:auto;padding:70px 0 90px}
-.hero h1{font-size:44px}
-.heroCard{height:390px}.orb{width:190px;height:190px}
-.orbText b{font-size:65px}.actions{flex-direction:column}
-.actions a{justify-content:center}
-.sectionHead{margin-bottom:35px}.sectionHead h2,.cta h2{font-size:38px}.stats{flex-wrap:wrap}
-.linkCards a{min-height:115px}}
+
+  .hero h1 {
+    font-size: 44px !important;
+    line-height: 1.02;
+    letter-spacing: -2px;
+  }
+
+  .heroCard {
+    height: 390px !important;
+  }
+
+  .orb {
+    width: 190px !important;
+    height: 190px !important;
+  }
+
+  .actions {
+    flex-direction: column !important;
+    gap: 12px;
+  }
+
+  .actions a {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+
+  /* ABOUT */
+  .aboutGrid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+
+  .aboutText {
+    width: 100%;
+  }
+
+  .principles {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  .principles > div {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+
+  /* PROGRAM */
+  .programGrid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+
+  /* PORTFOLIO */
+  .portfolioGrid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+
+  /* TESTIMONIAL */
+  .testGrid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+
+  /* CTA */
+  .cta {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+
+  /* GENERAL MOBILE */
+  .section {
+    padding: 80px 0 !important;
+  }
+
+  .sectionHead h2,
+  .cta h2 {
+    font-size: 38px !important;
+  }
+
+  .stats {
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  .shell {
+    width: min(100% - 32px, 1160px);
+  }
+
+  .linkCards {
+    grid-template-columns: 1fr !important;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 18px;
+  }
 }
