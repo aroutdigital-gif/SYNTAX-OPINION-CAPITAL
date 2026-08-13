@@ -116,6 +116,20 @@
     display: block;
   }
 
+.navCta {
+  padding: 10px 16px !important;
+  font-size: 13px !important;
+  line-height: 1.2 !important;
+  min-height: auto !important;
+  width: auto !important;
+  white-space: nowrap;
+}
+
+.navCta svg {
+  width: 14px;
+  height: 14px;
+}
+
 /* HEADER MOBILE */
 .nav {
     position: fixed !important;
