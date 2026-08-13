@@ -72,7 +72,7 @@ export default function Home() {
   <a className="secondary" href="https://www.instagram.com/ari.sesa/"
   target="_blank"
   rel="noopener noreferrer"> <Instagram size={17} /></a>
-  <a  className="secondary" href="https://ultgo.com/la-com/INDONESIAN/YjwMk56g"
+  <a  className="secondary" href="https://www.ultimamarkets-id.com/id/accounts/open-trading-account/?affid=MjI1OTkyNjc="
   target="_blank"
   rel="noopener noreferrer"
     >
