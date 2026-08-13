@@ -21,7 +21,7 @@ export default function Home() {
           <a href="#testimonials" onClick={() => setOpen(false)}>Testimonials</a>
           <a href="#contact" onClick={() => setOpen(false)}>Contact</a>
         </div>
-        <button className="iconBtn mobile" onClick={() => setOpen(!open)} aria-label="Menu">{open ? <X/> : <Menu/>}</button>
+        <button className="iconBtn mobile menuFixed" onClick={() => setOpen(!open)} aria-label="Menu">{open ? <X/> : <Menu/>}</button>
         <a className="navCta desktop" href="#contact">Join Community <ArrowUpRight size={16}/></a>
       </nav>
 
