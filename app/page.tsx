@@ -1982,9 +1982,9 @@ export default function Home() {
                        */
 
                       window.open(
-                        "https://wa.me/",
-                        "_blank"
-                      );
+                      "https://chat.whatsapp.com/GlNJ4cfGPHtDjhWV7h8Bpf",
+                      "_blank"
+);
                     }}
                   >
                     WhatsApp Community ↗
