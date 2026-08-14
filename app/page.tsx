@@ -40,548 +40,44 @@ const testimonials = [
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [lightbox, setLightbox] = useState<string | null>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const height =
-        document.documentElement.scrollHeight - window.innerHeight;
-
-      setScrollProgress(height > 0 ? (scrollTop / height) * 100 : 0);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
     const elements = document.querySelectorAll(".reveal");
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("active");
+            entry.target.classList.add("visible");
           }
         });
       },
       {
         threshold: 0.12,
+        rootMargin: "0px 0px -60px 0px",
       }
     );
 
     elements.forEach((element) => observer.observe(element));
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = lightbox ? "hidden" : "";
+    document.body.style.overflow = menuOpen || lightbox ? "hidden" : "";
 
     return () => {
       document.body.style.overflow = "";
     };
-  }, [lightbox]);
+  }, [menuOpen, lightbox]);
 
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <>
-      <div
-        className="progress"
-        style={{ width: `${scrollProgress}%` }}
-      />
-
-      <div className="noise" />
-
-      {/* NAVIGATION */}
-      <header className="topbar">
-        <a href="#home" className="brand" onClick={closeMenu}>
-          <img src="/logo.jpg" alt="Syntax Opinion" />
-
-          <span>
-            <b>Syntax Opinion</b>
-            <small>Capital</small>
-          </span>
-        </a>
-
-        <nav className="desktop-nav">
-          <a href="#about">About</a>
-          <a href="#framework">Framework</a>
-          <a href="#testimonials">Testimonials</a>
-          <a href="#join">Join</a>
-        </nav>
-
-        <button
-          className={`menu-button ${menuOpen ? "open" : ""}`}
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Open menu"
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-      </header>
-
-      {/* MOBILE MENU */}
-      <div className={`mobile-menu ${menuOpen ? "show" : ""}`}>
-        <div className="mobile-menu-inner">
-          <div className="mobile-menu-title">
-            <span>MENU</span>
-
-            <button onClick={closeMenu}>×</button>
-          </div>
-
-          <a href="#home" onClick={closeMenu}>
-            <small>01</small>
-            Home
-          </a>
-
-          <a href="#about" onClick={closeMenu}>
-            <small>02</small>
-            About
-          </a>
-
-          <a href="#framework" onClick={closeMenu}>
-            <small>03</small>
-            Framework
-          </a>
-
-          <a href="#testimonials" onClick={closeMenu}>
-            <small>04</small>
-            Testimonials
-          </a>
-
-          <a href="#join" onClick={closeMenu}>
-            <small>05</small>
-            Join Syntax Opinion
-          </a>
-        </div>
-      </div>
-
-      <main>
-        {/* HERO */}
-        <section className="hero section" id="home">
-          <div className="hero-grid">
-            <div className="hero-copy reveal">
-              <div className="eyebrow">
-                <span />
-                TRADING COMMUNITY · EST. 2026
-              </div>
-
-              <h1>
-                Decode
-                <br />
-                the market.
-                <br />
-                <em>
-                  Build
-                  <br />
-                  your edge.
-                </em>
-              </h1>
-
-              <p className="lead">
-                Syntax Opinion Capital adalah komunitas edukasi trading
-                yang menggabungkan fundamental, technical, geopolitics,
-                market structure, dan risk management untuk membantu
-                trader membangun proses yang lebih terukur.
-              </p>
-
-              <div className="actions">
-                <a className="btn primary" href="#join">
-                  Join Syntax Opinion <span>↗</span>
-                </a>
-
-                <a className="btn secondary" href="#testimonials">
-                  Explore Proof <span>›</span>
-                </a>
-              </div>
-
-              <div className="hero-points">
-                <div>
-                  <b>01</b>
-                  <span>
-                    Fundamental
-                    <br />
-                    First
-                  </span>
-                </div>
-
-                <div>
-                  <b>02</b>
-                  <span>
-                    Technical
-                    <br />
-                    Context
-                  </span>
-                </div>
-
-                <div>
-                  <b>03</b>
-                  <span>
-                    Risk
-                    <br />
-                    Discipline
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="hero-visual reveal delay">
-              <div className="orb orb-one" />
-              <div className="orb orb-two" />
-
-              <div className="grid-lines" />
-
-              <div className="logo-card">
-                <img
-                  src="/logo.jpg"
-                  alt="Syntax Opinion Capital"
-                />
-
-                <div className="scan-line" />
-              </div>
-
-              <div className="floating-label label-one">
-                PROCESS
-                <br />
-                <strong>OVER PREDICTION</strong>
-              </div>
-
-              <div className="floating-label label-two">
-                FUNDAMENTAL
-                <br />
-                <strong>→ TECHNICAL</strong>
-              </div>
-
-              <div className="floating-number">01</div>
-            </div>
-          </div>
-
-          <div className="scroll-indicator">
-            <span>SCROLL TO EXPLORE</span>
-            <i />
-          </div>
-        </section>
-
-        {/* ABOUT */}
-        <section className="section about" id="about">
-          <div className="section-number reveal">01 / ABOUT</div>
-
-          <div className="split">
-            <div className="reveal">
-              <h2>
-                From market
-                <br />
-                noise to market
-                <br />
-                <em>clarity.</em>
-              </h2>
-            </div>
-
-            <div className="about-content reveal delay">
-              <p className="big">
-                Kami membangun ruang belajar untuk trader yang ingin
-                memahami <strong>kenapa</strong> harga bergerak, bukan
-                sekadar mengejar ke mana harga bergerak.
-              </p>
-
-              <div className="mini-grid">
-                <article>
-                  <span>01</span>
-                  <h3>Process</h3>
-                  <p>
-                    Alur analisis yang dapat diulang dan
-                    dikembangkan.
-                  </p>
-                </article>
-
-                <article>
-                  <span>02</span>
-                  <h3>Context</h3>
-                  <p>
-                    Macro, geopolitics, dan price action sebagai
-                    konteks.
-                  </p>
-                </article>
-
-                <article>
-                  <span>03</span>
-                  <h3>Discipline</h3>
-                  <p>
-                    Risk management dalam setiap pengambilan
-                    keputusan.
-                  </p>
-                </article>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* FRAMEWORK */}
-        <section className="section framework" id="framework">
-          <div className="section-number reveal">02 / FRAMEWORK</div>
-
-          <div className="framework-head">
-            <div className="reveal">
-              <h2>
-                One market.
-                <br />
-                <em>Multiple lenses.</em>
-              </h2>
-            </div>
-
-            <p className="reveal delay">
-              Fundamental sebagai konteks utama, technical sebagai
-              alat membaca struktur dan timing.
-            </p>
-          </div>
-
-          <div className="framework-grid">
-            <article className="framework-card reveal">
-              <div className="card-top">
-                <span>01</span>
-                <strong>◎</strong>
-              </div>
-
-              <div className="card-line" />
-
-              <h3>Fundamental</h3>
-
-              <p>
-                Macro data, central bank, liquidity, rates, USD,
-                dan geopolitics.
-              </p>
-
-              <div className="card-arrow">↗</div>
-            </article>
-
-            <article className="framework-card reveal delay">
-              <div className="card-top">
-                <span>02</span>
-                <strong>⌁</strong>
-              </div>
-
-              <div className="card-line" />
-
-              <h3>Technical</h3>
-
-              <p>
-                Market structure, price action, multi-timeframe,
-                SNR/SND, dan SMC.
-              </p>
-
-              <div className="card-arrow">↗</div>
-            </article>
-
-            <article className="framework-card reveal delay2">
-              <div className="card-top">
-                <span>03</span>
-                <strong>↗</strong>
-              </div>
-
-              <div className="card-line" />
-
-              <h3>Risk Discipline</h3>
-
-              <p>
-                RR, position sizing, invalidation, dan eksekusi
-                tanpa overtrade.
-              </p>
-
-              <div className="card-arrow">↗</div>
-            </article>
-          </div>
-        </section>
-
-        {/* COMMUNITY */}
-        <section className="section community">
-          <div className="section-number reveal">
-            03 / COMMUNITY PROOF
-          </div>
-
-          <div className="proof-banner reveal">
-            <div>
-              <div className="eyebrow">
-                <span />
-                REAL DISCUSSION · REAL PROCESS
-              </div>
-
-              <h2>
-                Bukan sekadar call.
-                <br />
-                <em>Bangun cara berpikir.</em>
-              </h2>
-            </div>
-
-            <div className="proof-logo">
-              <img
-                src="/logo.jpg"
-                alt="Syntax Opinion"
-              />
-            </div>
-
-            <div className="proof-decoration">S/O</div>
-          </div>
-        </section>
-
-        {/* TESTIMONIALS */}
-        <section
-          className="section testimonials"
-          id="testimonials"
-        >
-          <div className="section-number reveal">
-            04 / TESTIMONIALS
-          </div>
-
-          <div className="testimonials-head">
-            <div className="reveal">
-              <h2>
-                Inside the
-                <br />
-                <em>community.</em>
-              </h2>
-            </div>
-
-            <p className="reveal delay">
-              Dokumentasi diskusi, outlook, analisis, dan hasil
-              pembelajaran dari grup. Ditampilkan sebagai
-              dokumentasi komunitas, bukan jaminan hasil trading.
-            </p>
-          </div>
-
-          <div className="testimonial-grid">
-            {testimonials.map((item, index) => (
-              <article
-                className={`testimonial-card reveal ${
-                  index % 2 === 1 ? "delay" : ""
-                }`}
-                key={item.image}
-                onClick={() => setLightbox(item.image)}
-              >
-                <div className="testimonial-image">
-                  <img
-                    src={item.image}
-                    alt={`Dokumentasi komunitas ${index + 1}`}
-                    loading="lazy"
-                  />
-
-                  <div className="image-number">
-                    {String(index + 1).padStart(2, "0")}
-                  </div>
-
-                  <div className="image-overlay">
-                    VIEW IMAGE <span>↗</span>
-                  </div>
-                </div>
-
-                <div className="card-meta">
-                  <span>
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-
-                  <b>{item.title}</b>
-
-                  <span className="meta-arrow">↗</span>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* JOIN */}
-        <section className="section join" id="join">
-          <div className="join-box reveal">
-            <div className="join-content">
-              <div className="eyebrow">
-                <span />
-                SYNTAX OPINION CAPITAL
-              </div>
-
-              <h2>
-                Build your edge.
-                <br />
-                <em>Not your hype.</em>
-              </h2>
-
-              <p>
-                Masuk ke komunitas dan pelajari proses analisis yang
-                lebih terstruktur — fundamental, technical,
-                geopolitics, dan risk management dalam satu
-                framework.
-              </p>
-
-              {/* GANTI LINK DI BAWAH */}
-              <a
-                className="btn primary large"
-                href="#"
-                onClick={(e) => e.preventDefault()}
-              >
-                Join Syntax Opinion <span>↗</span>
-              </a>
-
-              <small>
-                Ganti link tombol di atas dengan link
-                WhatsApp/Telegram/grup Anda.
-              </small>
-            </div>
-
-            <div className="join-visual">
-              <div className="join-ring ring-one" />
-              <div className="join-ring ring-two" />
-
-              <img
-                src="/logo.jpg"
-                alt="Syntax Opinion Capital"
-              />
-            </div>
-          </div>
-        </section>
-      </main>
-
-      {/* FLOATING JOIN */}
-      <a className="join-float" href="#join">
-        <span>JOIN SYNTAX OPINION</span>
-        <b>↗</b>
-      </a>
-
-      {/* LIGHTBOX */}
-      {lightbox && (
-        <div
-          className="lightbox"
-          onClick={() => setLightbox(null)}
-        >
-          <button
-            className="lightbox-close"
-            onClick={() => setLightbox(null)}
-          >
-            ×
-          </button>
-
-          <img
-            src={lightbox}
-            alt="Testimonial preview"
-            onClick={(e) => e.stopPropagation()}
-          />
-        </div>
-      )}
-
-      {/* FOOTER */}
-      <footer>
-        <span>SYNTAX OPINION CAPITAL</span>
-        <span>NO ERROR. ONLY TRUE CODE.</span>
-        <span>© 2026</span>
-      </footer>
-
       <style jsx global>{`
         * {
           box-sizing: border-box;
-          margin: 0;
-          padding: 0;
         }
 
         html {
@@ -589,10 +85,14 @@ export default function Home() {
         }
 
         body {
+          margin: 0;
           background: #07080b;
-          color: #f2f2f2;
-          font-family: Inter, Arial, sans-serif;
-          overflow-x: hidden;
+          color: #f5f5f7;
+          font-family:
+            Inter,
+            Arial,
+            Helvetica,
+            sans-serif;
         }
 
         a {
@@ -601,58 +101,73 @@ export default function Home() {
         }
 
         button {
-          font: inherit;
+          font-family: inherit;
         }
 
-        .progress {
-          position: fixed;
-          top: 0;
-          left: 0;
-          height: 2px;
-          background: #ffffff;
-          z-index: 9999;
-          transition: width 0.1s linear;
+        ::selection {
+          background: #737cff;
+          color: white;
         }
 
-        .noise {
-          position: fixed;
-          inset: 0;
-          pointer-events: none;
-          z-index: 999;
-          opacity: 0.035;
-          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+        .site {
+          overflow: hidden;
+          background: #07080b;
         }
 
-        .section {
-          position: relative;
-          width: 100%;
-          max-width: 1400px;
-          margin: 0 auto;
-          padding: 140px 6vw;
+        /* =========================
+           REVEAL ANIMATION
+        ========================= */
+
+        .reveal {
+          opacity: 0;
+          transform: translateY(45px);
+          transition:
+            opacity 0.9s ease,
+            transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        /* NAV */
+        .reveal.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .delay {
+          transition-delay: 0.12s;
+        }
+
+        .delay2 {
+          transition-delay: 0.24s;
+        }
+
+        .delay3 {
+          transition-delay: 0.36s;
+        }
+
+        /* =========================
+           NAV
+        ========================= */
 
         .topbar {
           position: fixed;
           top: 0;
           left: 0;
-          width: 100%;
-          height: 82px;
-          padding: 0 5vw;
+          right: 0;
+          z-index: 100;
+          height: 76px;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          background: rgba(7, 8, 11, 0.7);
+          padding: 0 5vw;
+          background: rgba(7, 8, 11, 0.72);
           backdrop-filter: blur(18px);
-          border-bottom: 1px solid rgba(255,255,255,0.08);
-          z-index: 1000;
+          -webkit-backdrop-filter: blur(18px);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .brand {
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 11px;
         }
 
         .brand img {
@@ -662,211 +177,222 @@ export default function Home() {
           border-radius: 50%;
         }
 
-        .brand span {
+        .brand-text {
           display: flex;
           flex-direction: column;
           line-height: 1;
         }
 
-        .brand b {
-          font-size: 14px;
-          letter-spacing: -0.3px;
+        .brand-text b {
+          font-size: 13px;
+          letter-spacing: 0.04em;
         }
 
-        .brand small {
+        .brand-text small {
           margin-top: 5px;
-          color: #888;
+          color: #777b88;
           font-size: 9px;
-          letter-spacing: 3px;
+          letter-spacing: 0.2em;
           text-transform: uppercase;
         }
 
         .desktop-nav {
           display: flex;
           align-items: center;
-          gap: 36px;
+          gap: 34px;
         }
 
         .desktop-nav a {
-          color: #9b9b9b;
+          color: #9699a5;
           font-size: 12px;
-          text-transform: uppercase;
-          letter-spacing: 1.5px;
-          transition: color 0.3s ease;
+          transition: color 0.25s ease;
         }
 
         .desktop-nav a:hover {
-          color: #fff;
+          color: white;
         }
 
         .menu-button {
           display: none;
-          border: 0;
-          background: transparent;
-          width: 42px;
-          height: 42px;
-          flex-direction: column;
+          width: 46px;
+          height: 46px;
+          border-radius: 50%;
+          border: 1px solid rgba(255,255,255,0.12);
+          background: rgba(15,16,21,0.92);
+          color: white;
+          align-items: center;
           justify-content: center;
+          flex-direction: column;
           gap: 5px;
           cursor: pointer;
         }
 
         .menu-button span {
-          display: block;
-          width: 24px;
+          width: 18px;
           height: 1px;
           background: white;
-          transition: 0.3s;
         }
 
-        .menu-button.open span:nth-child(1) {
-          transform: translateY(6px) rotate(45deg);
-        }
+        /* =========================
+           MOBILE MENU
+        ========================= */
 
-        .menu-button.open span:nth-child(2) {
-          opacity: 0;
-        }
-
-        .menu-button.open span:nth-child(3) {
-          transform: translateY(-6px) rotate(-45deg);
-        }
-
-        .mobile-menu {
+        .drawer {
           position: fixed;
-          inset: 0;
-          background: rgba(5,6,8,0.97);
-          backdrop-filter: blur(20px);
-          z-index: 999;
+          z-index: 200;
+          top: 0;
+          right: 0;
+          width: min(86vw, 390px);
+          height: 100vh;
+          padding: 30px;
+          background: #0b0c11;
+          border-left: 1px solid rgba(255,255,255,0.08);
           transform: translateX(100%);
-          transition: transform 0.55s cubic-bezier(.77,0,.18,1);
+          transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
         }
 
-        .mobile-menu.show {
+        .drawer.open {
           transform: translateX(0);
         }
 
-        .mobile-menu-inner {
-          padding: 110px 8vw 40px;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .mobile-menu-title {
+        .drawer-head {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding-bottom: 25px;
-          border-bottom: 1px solid #222;
-          margin-bottom: 20px;
-        }
-
-        .mobile-menu-title span {
+          margin-bottom: 50px;
+          color: #777b88;
           font-size: 10px;
-          letter-spacing: 3px;
-          color: #777;
+          letter-spacing: 0.2em;
         }
 
-        .mobile-menu-title button {
+        .drawer-head button {
+          width: 40px;
+          height: 40px;
           border: 0;
-          background: transparent;
+          border-radius: 50%;
+          background: #171820;
           color: white;
-          font-size: 35px;
+          font-size: 25px;
           cursor: pointer;
         }
 
-        .mobile-menu a {
-          display: flex;
-          align-items: center;
-          gap: 18px;
-          padding: 22px 0;
-          border-bottom: 1px solid #1c1c1c;
-          font-size: 24px;
-          font-weight: 500;
+        .drawer a {
+          display: block;
+          padding: 19px 0;
+          border-bottom: 1px solid rgba(255,255,255,0.08);
+          color: white;
+          font-size: 18px;
         }
 
-        .mobile-menu a small {
-          color: #555;
-          font-size: 10px;
-          letter-spacing: 2px;
-        }
-
-        /* HERO */
-
-        .hero {
-          min-height: 100vh;
-          display: flex;
-          align-items: center;
-          padding-top: 150px;
-          overflow: hidden;
-        }
-
-        .hero:before {
-          content: "";
-          position: absolute;
-          width: 600px;
-          height: 600px;
-          right: -250px;
-          top: 15%;
-          background: radial-gradient(
-            circle,
-            rgba(255,255,255,0.09),
-            transparent 65%
-          );
-          filter: blur(20px);
+        .backdrop {
+          position: fixed;
+          inset: 0;
+          z-index: 150;
+          background: rgba(0,0,0,0.65);
+          opacity: 0;
           pointer-events: none;
+          transition: opacity 0.3s ease;
         }
 
-        .hero-grid {
-          width: 100%;
-          display: grid;
-          grid-template-columns: 1.05fr 0.95fr;
-          align-items: center;
-          gap: 60px;
+        .backdrop.open {
+          opacity: 1;
+          pointer-events: auto;
+        }
+
+        /* =========================
+           GENERAL
+        ========================= */
+
+        .section {
+          position: relative;
+          padding: 140px 5vw;
+        }
+
+        .kicker {
+          margin-bottom: 45px;
+          color: #777cff;
+          font-size: 10px;
+          font-weight: 700;
+          letter-spacing: 0.22em;
         }
 
         .eyebrow {
           display: flex;
           align-items: center;
-          gap: 10px;
-          color: #777;
-          font-size: 10px;
-          letter-spacing: 2.5px;
-          font-weight: 600;
+          gap: 9px;
+          margin: 0 0 25px;
+          color: #858995;
+          font-size: 9px;
+          font-weight: 700;
+          letter-spacing: 0.18em;
         }
 
         .eyebrow span {
-          width: 25px;
-          height: 1px;
-          background: #aaa;
-          display: block;
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: #777cff;
+          box-shadow: 0 0 12px #777cff;
         }
 
-        .hero h1 {
-          margin-top: 28px;
-          font-size: clamp(58px, 7.2vw, 112px);
-          line-height: 0.86;
-          letter-spacing: -5px;
-          font-weight: 700;
+        h1,
+        h2,
+        h3,
+        p {
+          margin-top: 0;
+        }
+
+        h1,
+        h2 {
+          letter-spacing: -0.055em;
         }
 
         h1 em,
         h2 em {
+          color: #7b80ff;
           font-style: normal;
-          color: #777;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+          min-height: 100vh;
+          padding-top: 150px;
+          display: flex;
+          align-items: center;
+        }
+
+        .hero-grid {
+          width: 100%;
+          max-width: 1400px;
+          margin: auto;
+          display: grid;
+          grid-template-columns: 1.05fr 0.95fr;
+          gap: 7vw;
+          align-items: center;
+        }
+
+        .hero-copy h1 {
+          max-width: 760px;
+          margin-bottom: 30px;
+          font-size: clamp(55px, 7vw, 105px);
+          line-height: 0.91;
+          font-weight: 800;
         }
 
         .lead {
-          max-width: 590px;
-          margin-top: 38px;
-          color: #999;
+          max-width: 650px;
+          color: #9b9eaa;
           font-size: 15px;
           line-height: 1.9;
         }
 
         .actions {
           display: flex;
-          gap: 12px;
-          margin-top: 38px;
+          gap: 10px;
+          margin-top: 34px;
           flex-wrap: wrap;
         }
 
@@ -874,459 +400,524 @@ export default function Home() {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: 20px;
-          min-height: 52px;
+          min-height: 48px;
           padding: 0 22px;
-          font-size: 11px;
-          letter-spacing: 1px;
-          text-transform: uppercase;
-          transition: all 0.3s ease;
+          border-radius: 999px;
+          font-size: 12px;
+          font-weight: 700;
+          transition:
+            transform 0.25s ease,
+            background 0.25s ease;
         }
 
-        .btn.primary {
-          color: #050505;
-          background: #fff;
+        .btn:hover {
+          transform: translateY(-3px);
         }
 
-        .btn.primary:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 15px 40px rgba(255,255,255,0.12);
+        .btn.light {
+          color: #08090c;
+          background: white;
         }
 
-        .btn.secondary {
-          border: 1px solid #333;
-          color: #aaa;
-        }
-
-        .btn.secondary:hover {
+        .btn.outline {
           color: white;
-          border-color: #777;
-        }
-
-        .btn span {
-          font-size: 16px;
+          border: 1px solid rgba(255,255,255,0.14);
+          background: rgba(255,255,255,0.02);
         }
 
         .hero-points {
           display: flex;
           gap: 45px;
-          margin-top: 65px;
+          margin-top: 42px;
+          padding-top: 22px;
+          border-top: 1px solid rgba(255,255,255,0.08);
         }
 
         .hero-points div {
           display: flex;
-          gap: 12px;
-          align-items: flex-start;
+          flex-direction: column;
+          gap: 7px;
         }
 
         .hero-points b {
-          color: #555;
+          color: #777cff;
           font-size: 9px;
-          letter-spacing: 1px;
         }
 
         .hero-points span {
-          color: #888;
+          color: #8d909c;
           font-size: 10px;
           line-height: 1.5;
-          text-transform: uppercase;
-          letter-spacing: 1px;
         }
 
         .hero-visual {
           position: relative;
-          height: 600px;
+          min-height: 550px;
           display: flex;
           align-items: center;
           justify-content: center;
-        }
-
-        .grid-lines {
-          position: absolute;
-          width: 470px;
-          height: 470px;
-          background-image:
-            linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
-          background-size: 47px 47px;
-          transform: perspective(500px) rotateX(50deg) rotateZ(-20deg);
-          mask-image: radial-gradient(circle, black 10%, transparent 70%);
         }
 
         .orb {
           position: absolute;
+          width: 470px;
+          height: 470px;
           border-radius: 50%;
-          filter: blur(50px);
+          background:
+            radial-gradient(
+              circle at 35% 30%,
+              rgba(102,112,255,0.7),
+              rgba(30,34,75,0.25) 35%,
+              transparent 67%
+            );
+          filter: blur(12px);
+          animation: floatOrb 7s ease-in-out infinite;
         }
 
-        .orb-one {
-          width: 300px;
-          height: 300px;
-          background: rgba(255,255,255,0.06);
-          animation: float 6s ease-in-out infinite;
-        }
-
-        .orb-two {
-          width: 180px;
-          height: 180px;
-          background: rgba(255,255,255,0.04);
-          transform: translate(120px,-100px);
-          animation: float 8s ease-in-out infinite reverse;
+        @keyframes floatOrb {
+          0%,100% {
+            transform: translateY(0) scale(1);
+          }
+          50% {
+            transform: translateY(-18px) scale(1.04);
+          }
         }
 
         .logo-card {
           position: relative;
-          width: 340px;
-          height: 340px;
+          z-index: 2;
+          width: min(480px, 80%);
+          aspect-ratio: 0.8;
+          padding: 24px;
           display: flex;
           align-items: center;
           justify-content: center;
-          background: rgba(15,16,20,0.8);
-          border: 1px solid rgba(255,255,255,0.14);
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 28px;
+          background:
+            linear-gradient(
+              145deg,
+              rgba(20,22,32,0.95),
+              rgba(8,9,13,0.82)
+            );
           box-shadow:
-            0 50px 100px rgba(0,0,0,0.5),
-            inset 0 0 80px rgba(255,255,255,0.025);
-          transform: rotate(-4deg);
-          animation: cardFloat 7s ease-in-out infinite;
+            0 35px 90px rgba(0,0,0,0.5),
+            inset 0 1px rgba(255,255,255,0.06);
           overflow: hidden;
         }
 
-        .logo-card:before {
-          content: "";
-          position: absolute;
-          inset: 12px;
-          border: 1px solid rgba(255,255,255,0.06);
-        }
-
         .logo-card img {
-          position: relative;
-          width: 190px;
-          height: 190px;
+          width: 70%;
+          height: 70%;
           object-fit: contain;
-          filter: grayscale(1);
+          border-radius: 50%;
+          filter: drop-shadow(0 0 50px rgba(100,110,255,0.35));
         }
 
-        .scan-line {
+        .scan {
           position: absolute;
           left: 0;
-          width: 100%;
+          right: 0;
           height: 1px;
           background: linear-gradient(
             90deg,
             transparent,
-            rgba(255,255,255,.7),
+            rgba(120,128,255,0.8),
             transparent
           );
-          animation: scan 4s linear infinite;
+          animation: scan 4s ease-in-out infinite;
+        }
+
+        @keyframes scan {
+          0% {
+            top: 15%;
+            opacity: 0;
+          }
+          25% {
+            opacity: 1;
+          }
+          75% {
+            opacity: 1;
+          }
+          100% {
+            top: 85%;
+            opacity: 0;
+          }
         }
 
         .floating-label {
           position: absolute;
-          padding: 13px 16px;
-          background: rgba(10,11,14,.8);
-          border: 1px solid #292929;
-          color: #777;
+          z-index: 3;
+          padding: 12px 15px;
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 9px;
+          background: rgba(9,10,14,0.86);
+          color: #aaaeba;
           font-size: 8px;
           line-height: 1.6;
-          letter-spacing: 1.5px;
+          letter-spacing: 0.15em;
           backdrop-filter: blur(12px);
         }
 
-        .floating-label strong {
-          color: #ddd;
-          font-weight: 500;
-        }
-
-        .label-one {
-          top: 90px;
-          right: 0;
-          animation: float 5s ease-in-out infinite;
-        }
-
-        .label-two {
-          bottom: 110px;
+        .floating-label.a {
+          top: 17%;
           left: 0;
-          animation: float 6s ease-in-out infinite reverse;
         }
 
-        .floating-number {
-          position: absolute;
-          right: 60px;
-          bottom: 30px;
-          color: #333;
-          font-size: 80px;
+        .floating-label.b {
+          right: 0;
+          bottom: 18%;
+        }
+
+        /* =========================
+           ABOUT
+        ========================= */
+
+        .split {
+          max-width: 1400px;
+          margin: auto;
+          display: grid;
+          grid-template-columns: 0.95fr 1.05fr;
+          gap: 8vw;
+          align-items: start;
+        }
+
+        .split h2,
+        .framework-head h2,
+        .testimonials-head h2,
+        .join-box h2 {
+          margin-bottom: 0;
+          font-size: clamp(48px, 5.5vw, 82px);
+          line-height: 0.95;
           font-weight: 800;
         }
 
-        .scroll-indicator {
-          position: absolute;
-          left: 6vw;
-          bottom: 30px;
-          display: flex;
-          align-items: center;
-          gap: 15px;
-          color: #555;
-          font-size: 8px;
-          letter-spacing: 2px;
-        }
-
-        .scroll-indicator i {
-          width: 50px;
-          height: 1px;
-          background: #333;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .scroll-indicator i:after {
-          content: "";
-          position: absolute;
-          left: 0;
-          width: 20px;
-          height: 1px;
-          background: white;
-          animation: lineMove 2s ease-in-out infinite;
-        }
-
-        /* SECTIONS */
-
-        .section-number {
-          color: #555;
-          font-size: 10px;
-          letter-spacing: 3px;
-          margin-bottom: 70px;
-        }
-
-        .split {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 100px;
-        }
-
-        h2 {
-          font-size: clamp(46px, 5vw, 78px);
-          line-height: .95;
-          letter-spacing: -4px;
-        }
-
         .big {
-          color: #999;
-          font-size: 19px;
-          line-height: 1.8;
-          max-width: 600px;
+          max-width: 680px;
+          color: #e6e6ea;
+          font-size: clamp(20px, 2vw, 27px);
+          line-height: 1.55;
         }
 
         .big strong {
-          color: #fff;
+          color: white;
         }
 
         .mini-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 15px;
-          margin-top: 60px;
+          gap: 12px;
+          margin-top: 45px;
         }
 
         .mini-grid article {
-          padding: 22px 0;
-          border-top: 1px solid #292929;
+          padding-top: 18px;
+          border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        .mini-grid span {
-          color: #555;
+        .mini-grid b {
+          color: #777cff;
           font-size: 9px;
         }
 
         .mini-grid h3 {
-          margin-top: 25px;
+          margin: 15px 0 8px;
           font-size: 15px;
         }
 
         .mini-grid p {
-          color: #777;
+          color: #777b87;
           font-size: 11px;
-          line-height: 1.7;
-          margin-top: 10px;
+          line-height: 1.6;
         }
 
-        /* FRAMEWORK */
+        /* =========================
+           PROGRAM
+        ========================= */
+
+        .program {
+          background: #0b0c10;
+          border-top: 1px solid rgba(255,255,255,0.05);
+          border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
 
         .framework-head {
+          max-width: 1400px;
+          margin: 0 auto 60px;
           display: flex;
+          align-items: end;
           justify-content: space-between;
-          gap: 50px;
-          align-items: flex-end;
-          margin-bottom: 70px;
+          gap: 40px;
         }
 
         .framework-head p {
           max-width: 400px;
-          color: #777;
-          font-size: 13px;
+          color: #818591;
           line-height: 1.8;
+          font-size: 13px;
         }
 
         .framework-grid {
+          max-width: 1400px;
+          margin: auto;
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 15px;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 12px;
         }
 
         .framework-card {
-          min-height: 370px;
+          min-height: 300px;
+          padding: 25px;
           position: relative;
-          padding: 30px;
-          background: linear-gradient(
-            145deg,
-            #111216,
-            #090a0d
-          );
-          border: 1px solid #222;
-          transition: transform .5s ease, border-color .5s ease;
-          overflow: hidden;
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 18px;
+          background: rgba(255,255,255,0.015);
+          transition:
+            transform 0.35s ease,
+            border-color 0.35s ease;
         }
 
         .framework-card:hover {
-          transform: translateY(-10px);
-          border-color: #555;
+          transform: translateY(-8px);
+          border-color: rgba(120,128,255,0.35);
         }
 
-        .framework-card:after {
-          content: "";
-          position: absolute;
-          width: 160px;
-          height: 160px;
-          right: -80px;
-          bottom: -80px;
-          border-radius: 50%;
-          background: rgba(255,255,255,.04);
-          filter: blur(20px);
+        .framework-card > b {
+          color: #777cff;
+          font-size: 9px;
         }
 
-        .card-top {
-          display: flex;
-          justify-content: space-between;
-          color: #555;
-        }
-
-        .card-top strong {
-          font-size: 30px;
-          font-weight: 400;
-          color: #777;
-        }
-
-        .card-line {
-          width: 100%;
-          height: 1px;
-          background: #222;
-          margin-top: 25px;
+        .framework-icon {
+          margin-top: 75px;
+          color: #777cff;
+          font-size: 25px;
         }
 
         .framework-card h3 {
-          margin-top: 100px;
-          font-size: 24px;
-        }
-
-        .framework-card p {
-          margin-top: 15px;
-          color: #777;
-          line-height: 1.8;
-          font-size: 12px;
-          max-width: 320px;
-        }
-
-        .card-arrow {
-          position: absolute;
-          right: 30px;
-          bottom: 28px;
-          color: #555;
+          margin: 16px 0 10px;
           font-size: 20px;
         }
 
-        /* COMMUNITY */
+        .framework-card p {
+          color: #777b87;
+          font-size: 11px;
+          line-height: 1.7;
+        }
 
-        .proof-banner {
+        /* =========================
+           PORTFOLIO
+        ========================= */
+
+        .portfolio {
+          background: #07080b;
+        }
+
+        .portfolio-head {
+          max-width: 1400px;
+          margin: auto auto 50px;
+        }
+
+        .portfolio-head h2 {
+          max-width: 700px;
+          font-size: clamp(48px, 5.5vw, 82px);
+          line-height: 0.95;
+          margin: 0;
+        }
+
+        .portfolio-grid {
+          max-width: 1400px;
+          margin: auto;
+          display: grid;
+          grid-template-columns: 1.7fr 0.9fr;
+          gap: 12px;
+        }
+
+        .market-card {
+          min-height: 480px;
           position: relative;
-          min-height: 430px;
-          padding: 70px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          background:
-            radial-gradient(
-              circle at 80% 50%,
-              rgba(255,255,255,.08),
-              transparent 30%
-            ),
-            #101115;
-          border: 1px solid #252525;
+          padding: 22px;
+          border-radius: 22px;
+          border: 1px solid rgba(255,255,255,0.08);
+          background: #0d0f14;
           overflow: hidden;
         }
 
-        .proof-banner h2 {
-          margin-top: 30px;
+        .market-card-top {
+          color: #777b87;
+          font-size: 8px;
+          letter-spacing: 0.15em;
         }
 
-        .proof-logo {
-          width: 230px;
-          height: 230px;
+        .market-map {
+          height: 250px;
+          margin-top: 45px;
           display: flex;
-          justify-content: center;
-          align-items: center;
-          border: 1px solid #292929;
-          transform: rotate(7deg);
-          animation: cardFloat 8s ease-in-out infinite;
+          align-items: end;
+          justify-content: space-around;
+          gap: 9px;
+          padding: 0 25px;
+          background-image:
+            linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+          background-size: 40px 40px;
         }
 
-        .proof-logo img {
-          width: 130px;
-          height: 130px;
-          object-fit: contain;
-          filter: grayscale(1);
+        .bar {
+          width: 7%;
+          min-width: 14px;
+          border-radius: 4px 4px 0 0;
+          background: linear-gradient(
+            to top,
+            #31389c,
+            #7d86ff
+          );
+          box-shadow: 0 0 20px rgba(95,105,255,0.2);
+          animation: barPulse 3s ease-in-out infinite alternate;
         }
 
-        .proof-decoration {
+        @keyframes barPulse {
+          from {
+            transform: scaleY(0.96);
+          }
+          to {
+            transform: scaleY(1.03);
+          }
+        }
+
+        .market-title {
           position: absolute;
-          right: -30px;
-          bottom: -90px;
-          font-size: 220px;
-          font-weight: 800;
-          color: rgba(255,255,255,.02);
+          right: 28px;
+          top: 255px;
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0.14em;
         }
 
-        /* TESTIMONIALS */
+        .market-info {
+          margin-top: 40px;
+        }
+
+        .market-info small {
+          color: #777cff;
+          font-size: 8px;
+          letter-spacing: 0.18em;
+        }
+
+        .market-info h3 {
+          margin: 10px 0;
+          font-size: 22px;
+        }
+
+        .market-info p {
+          max-width: 600px;
+          color: #777b87;
+          font-size: 11px;
+          line-height: 1.7;
+        }
+
+        .portfolio-side {
+          display: grid;
+          gap: 12px;
+        }
+
+        .portfolio-link {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          min-height: 150px;
+          padding: 24px;
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 18px;
+          background: #0d0f14;
+          transition:
+            transform 0.3s ease,
+            border-color 0.3s ease;
+        }
+
+        .portfolio-link:hover {
+          transform: translateX(6px);
+          border-color: rgba(120,128,255,0.3);
+        }
+
+        .portfolio-link small {
+          color: #777cff;
+          font-size: 8px;
+          letter-spacing: 0.16em;
+        }
+
+        .portfolio-link strong {
+          margin-top: 25px;
+          font-size: 14px;
+        }
+
+        .portfolio-link span {
+          margin-top: 7px;
+          color: #70737e;
+          font-size: 9px;
+        }
+
+        /* =========================
+           TESTIMONIALS
+        ========================= */
+
+        .testimonials {
+          background: #f2f3f8;
+          color: #111217;
+        }
+
+        .testimonials .kicker {
+          color: #656bdf;
+        }
 
         .testimonials-head {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 80px;
+          max-width: 1400px;
+          margin: auto auto 55px;
+          display: flex;
           align-items: end;
-          margin-bottom: 70px;
+          justify-content: space-between;
+          gap: 40px;
+        }
+
+        .testimonials-head h2 {
+          max-width: 650px;
         }
 
         .testimonials-head p {
-          color: #777;
-          max-width: 450px;
-          font-size: 13px;
-          line-height: 1.9;
+          max-width: 420px;
+          color: #737580;
+          font-size: 12px;
+          line-height: 1.8;
         }
 
         .testimonial-grid {
+          max-width: 1400px;
+          margin: auto;
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 50px 18px;
+          gap: 15px;
         }
 
         .testimonial-card {
+          border-radius: 20px;
+          overflow: hidden;
+          background: white;
+          border: 1px solid rgba(0,0,0,0.08);
           cursor: pointer;
+          transition:
+            transform 0.35s ease,
+            box-shadow 0.35s ease;
+        }
+
+        .testimonial-card:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 25px 60px rgba(0,0,0,0.12);
         }
 
         .testimonial-image {
           position: relative;
-          overflow: hidden;
           aspect-ratio: 16 / 10;
-          background: #111;
-          border: 1px solid #222;
+          background: #e7e8ed;
+          overflow: hidden;
         }
 
         .testimonial-image img {
@@ -1334,345 +925,218 @@ export default function Home() {
           height: 100%;
           object-fit: cover;
           display: block;
-          filter: grayscale(.15);
-          transition:
-            transform .8s cubic-bezier(.2,.7,.2,1),
-            filter .5s ease;
+          transition: transform 0.6s ease;
         }
 
         .testimonial-card:hover img {
-          transform: scale(1.06);
-          filter: grayscale(0);
+          transform: scale(1.04);
         }
 
         .image-number {
           position: absolute;
           top: 18px;
           left: 18px;
-          font-size: 10px;
-          letter-spacing: 2px;
           color: white;
-          text-shadow: 0 2px 10px #000;
+          font-size: 10px;
+          font-weight: 700;
+          text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
         .image-overlay {
           position: absolute;
-          inset: auto 0 0 0;
-          padding: 25px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          background: linear-gradient(
-            transparent,
-            rgba(0,0,0,.85)
-          );
+          right: 18px;
+          bottom: 18px;
+          padding: 8px 12px;
+          border-radius: 999px;
           color: white;
-          font-size: 9px;
-          letter-spacing: 2px;
-          opacity: 0;
-          transform: translateY(10px);
-          transition: .4s;
-        }
-
-        .testimonial-card:hover .image-overlay {
-          opacity: 1;
-          transform: translateY(0);
+          background: rgba(0,0,0,0.55);
+          backdrop-filter: blur(10px);
+          font-size: 8px;
+          letter-spacing: 0.12em;
         }
 
         .card-meta {
           display: flex;
-          align-items: center;
+          justify-content: space-between;
           gap: 15px;
-          padding: 18px 0;
-          border-bottom: 1px solid #222;
+          padding: 18px 20px;
+          font-size: 10px;
         }
 
-        .card-meta > span:first-child {
-          color: #555;
-          font-size: 9px;
+        .card-meta span {
+          color: #777cff;
         }
 
         .card-meta b {
-          font-size: 11px;
-          font-weight: 500;
+          color: #292b32;
         }
 
-        .meta-arrow {
-          margin-left: auto;
-          color: #555;
-        }
-
-        /* JOIN */
+        /* =========================
+           JOIN
+        ========================= */
 
         .join {
-          padding-bottom: 100px;
+          padding-top: 170px;
+          padding-bottom: 170px;
         }
 
         .join-box {
+          max-width: 1400px;
+          margin: auto;
+          min-height: 480px;
           position: relative;
-          min-height: 550px;
-          padding: 75px;
-          display: grid;
-          grid-template-columns: 1.2fr .8fr;
+          display: flex;
           align-items: center;
-          overflow: hidden;
+          justify-content: space-between;
+          gap: 60px;
+          padding: 70px;
+          border: 1px solid rgba(255,255,255,0.09);
+          border-radius: 28px;
           background:
             radial-gradient(
               circle at 75% 50%,
-              rgba(255,255,255,.08),
+              rgba(70,78,220,0.18),
               transparent 35%
             ),
-            #111216;
-          border: 1px solid #272727;
+            #0d0f14;
+          overflow: hidden;
         }
 
-        .join-content h2 {
+        .join-box h2 {
+          max-width: 760px;
+        }
+
+        .join-box > div > p:not(.eyebrow) {
+          max-width: 620px;
           margin-top: 30px;
+          color: #898d99;
+          font-size: 13px;
+          line-height: 1.8;
         }
 
-        .join-content p {
-          max-width: 570px;
-          margin-top: 30px;
-          color: #888;
-          font-size: 14px;
-          line-height: 1.9;
+        .join-logo {
+          position: relative;
+          width: 280px;
+          height: 280px;
+          object-fit: contain;
+          border-radius: 50%;
+          filter: drop-shadow(0 0 60px rgba(95,105,255,0.28));
+          animation: logoFloat 5s ease-in-out infinite;
         }
 
-        .large {
-          margin-top: 35px;
+        @keyframes logoFloat {
+          0%,100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-12px);
+          }
         }
 
-        .join-content small {
+        .join-note {
           display: block;
           margin-top: 12px;
-          color: #555;
+          color: #60636d;
           font-size: 9px;
         }
 
-        .join-visual {
-          position: relative;
-          height: 330px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .join-visual img {
-          width: 180px;
-          height: 180px;
-          object-fit: contain;
-          filter: grayscale(1);
-          position: relative;
-          z-index: 2;
-          animation: float 6s ease-in-out infinite;
-        }
-
-        .join-ring {
-          position: absolute;
-          border: 1px solid #292929;
-          border-radius: 50%;
-        }
-
-        .ring-one {
-          width: 290px;
-          height: 290px;
-          animation: rotate 20s linear infinite;
-        }
-
-        .ring-two {
-          width: 210px;
-          height: 210px;
-          border-style: dashed;
-          animation: rotate 14s linear infinite reverse;
-        }
-
-        /* FLOAT BUTTON */
+        /* =========================
+           FLOATING BUTTON
+        ========================= */
 
         .join-float {
           position: fixed;
-          right: 25px;
-          bottom: 25px;
-          z-index: 800;
+          right: 24px;
+          bottom: 24px;
+          z-index: 90;
           display: flex;
           align-items: center;
-          gap: 15px;
-          padding: 14px 18px;
+          gap: 20px;
+          padding: 8px 9px 8px 19px;
+          border-radius: 999px;
           background: white;
-          color: #050505;
-          font-size: 9px;
-          letter-spacing: 1.5px;
-          box-shadow: 0 10px 40px rgba(0,0,0,.4);
-          transition: .3s;
-        }
-
-        .join-float:hover {
-          transform: translateY(-5px);
+          color: #111217;
+          font-size: 10px;
+          font-weight: 800;
+          box-shadow: 0 15px 40px rgba(0,0,0,0.3);
         }
 
         .join-float b {
+          width: 38px;
+          height: 38px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          color: white;
+          background: #111217;
           font-size: 16px;
         }
 
-        /* LIGHTBOX */
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+          padding: 30px 5vw;
+          display: flex;
+          justify-content: space-between;
+          gap: 20px;
+          color: #666a76;
+          border-top: 1px solid rgba(255,255,255,0.07);
+          font-size: 9px;
+          letter-spacing: 0.1em;
+        }
+
+        /* =========================
+           LIGHTBOX
+        ========================= */
 
         .lightbox {
           position: fixed;
           inset: 0;
-          z-index: 2000;
+          z-index: 500;
           display: flex;
-          justify-content: center;
           align-items: center;
-          padding: 40px;
-          background: rgba(0,0,0,.94);
+          justify-content: center;
+          padding: 30px;
+          background: rgba(0,0,0,0.92);
           backdrop-filter: blur(15px);
-          animation: fadeIn .3s ease;
         }
 
         .lightbox img {
-          max-width: 95vw;
+          max-width: min(1100px, 95vw);
           max-height: 90vh;
           object-fit: contain;
-          animation: zoomIn .4s cubic-bezier(.2,.7,.2,1);
+          border-radius: 10px;
+          box-shadow: 0 30px 100px rgba(0,0,0,0.6);
         }
 
         .lightbox-close {
-          position: absolute;
+          position: fixed;
           top: 25px;
-          right: 30px;
-          border: 0;
-          background: transparent;
+          right: 25px;
+          z-index: 501;
+          width: 48px;
+          height: 48px;
+          border: 1px solid rgba(255,255,255,0.15);
+          border-radius: 50%;
+          background: rgba(255,255,255,0.08);
           color: white;
-          font-size: 40px;
-          font-weight: 200;
+          font-size: 28px;
           cursor: pointer;
-          z-index: 5;
         }
 
-        /* FOOTER */
-
-        footer {
-          max-width: 1400px;
-          margin: 0 auto;
-          padding: 35px 6vw;
-          border-top: 1px solid #1c1c1c;
-          display: flex;
-          justify-content: space-between;
-          gap: 20px;
-          color: #444;
-          font-size: 8px;
-          letter-spacing: 2px;
-        }
-
-        /* REVEAL */
-
-        .reveal {
-          opacity: 0;
-          transform: translateY(45px);
-          transition:
-            opacity .9s ease,
-            transform .9s cubic-bezier(.2,.7,.2,1);
-        }
-
-        .reveal.active {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        .delay {
-          transition-delay: .15s;
-        }
-
-        .delay2 {
-          transition-delay: .3s;
-        }
-
-        /* ANIMATION */
-
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0);
-          }
-
-          50% {
-            transform: translateY(-15px);
-          }
-        }
-
-        @keyframes cardFloat {
-          0%, 100% {
-            transform: rotate(-4deg) translateY(0);
-          }
-
-          50% {
-            transform: rotate(-2deg) translateY(-12px);
-          }
-        }
-
-        @keyframes scan {
-          0% {
-            top: -10%;
-            opacity: 0;
-          }
-
-          15% {
-            opacity: 1;
-          }
-
-          80% {
-            opacity: 1;
-          }
-
-          100% {
-            top: 110%;
-            opacity: 0;
-          }
-        }
-
-        @keyframes lineMove {
-          0% {
-            transform: translateX(-20px);
-          }
-
-          50% {
-            transform: translateX(50px);
-          }
-
-          100% {
-            transform: translateX(-20px);
-          }
-        }
-
-        @keyframes rotate {
-          to {
-            transform: rotate(360deg);
-          }
-        }
-
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-
-          to {
-            opacity: 1;
-          }
-        }
-
-        @keyframes zoomIn {
-          from {
-            opacity: 0;
-            transform: scale(.9);
-          }
-
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-
-        /* TABLET */
+        /* =========================
+           MOBILE
+        ========================= */
 
         @media (max-width: 900px) {
+          .topbar {
+            height: 64px;
+            padding: 0 18px;
+          }
+
           .desktop-nav {
             display: none;
           }
@@ -1681,18 +1145,112 @@ export default function Home() {
             display: flex;
           }
 
+          .section {
+            padding: 95px 15px;
+          }
+
+          .hero {
+            min-height: auto;
+            padding-top: 120px;
+          }
+
           .hero-grid,
           .split,
-          .join-box {
+          .portfolio-grid {
             grid-template-columns: 1fr;
+            gap: 50px;
+          }
+
+          .hero-copy h1 {
+            font-size: clamp(50px, 14vw, 82px);
+          }
+
+          .lead {
+            font-size: 13px;
+            line-height: 1.8;
           }
 
           .hero-visual {
-            height: 450px;
+            min-height: 430px;
           }
 
-          .hero-copy {
-            text-align: left;
+          .orb {
+            width: 330px;
+            height: 330px;
+          }
+
+          .logo-card {
+            width: 75%;
+          }
+
+          .floating-label.a {
+            left: 0;
+          }
+
+          .floating-label.b {
+            right: 0;
+          }
+
+          .mini-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .framework-head,
+          .testimonials-head {
+            display: block;
+          }
+
+          .framework-head p,
+          .testimonials-head p {
+            margin-top: 30px;
+          }
+
+          .framework-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+
+          .framework-card {
+            min-height: 260px;
+          }
+
+          .market-card {
+            min-height: 430px;
+          }
+
+          .join-box {
+            min-height: auto;
+            padding: 40px 25px;
+            flex-direction: column;
+            align-items: flex-start;
+          }
+
+          .join-logo {
+            width: 210px;
+            height: 210px;
+            align-self: center;
+          }
+
+          .testimonial-grid {
+            grid-template-columns: 1fr;
+          }
+
+          footer {
+            flex-direction: column;
+          }
+        }
+
+        @media (max-width: 560px) {
+          .brand img {
+            width: 34px;
+            height: 34px;
+          }
+
+          .hero-points {
+            gap: 20px;
+          }
+
+          .hero-points span {
+            font-size: 8px;
           }
 
           .framework-grid {
@@ -1700,230 +1258,48 @@ export default function Home() {
           }
 
           .framework-card {
-            min-height: 300px;
+            min-height: 220px;
           }
 
-          .testimonials-head {
-            grid-template-columns: 1fr;
-            gap: 30px;
-          }
-
-          .join-visual {
-            display: none;
-          }
-        }
-
-        /* MOBILE */
-
-        @media (max-width: 600px) {
-          .section {
-            padding: 95px 6vw;
-          }
-
-          .topbar {
-            height: 70px;
-            padding: 0 5vw;
-          }
-
-          .hero {
-            min-height: 100svh;
-            padding-top: 110px;
-            padding-bottom: 100px;
-          }
-
-          .hero h1 {
-            font-size: clamp(52px, 15vw, 78px);
-            letter-spacing: -4px;
-          }
-
-          .lead {
-            font-size: 13px;
-            line-height: 1.8;
-            margin-top: 30px;
-          }
-
-          .actions {
-            flex-direction: column;
-            align-items: stretch;
-          }
-
-          .btn {
-            width: 100%;
-          }
-
-          .hero-points {
-            gap: 15px;
-            justify-content: space-between;
+          .framework-icon {
             margin-top: 45px;
           }
 
-          .hero-points div {
-            gap: 7px;
+          .market-map {
+            padding: 0 8px;
+            gap: 5px;
           }
 
-          .hero-points span {
-            font-size: 8px;
-          }
-
-          .hero-visual {
-            height: 330px;
-            margin-top: 15px;
-          }
-
-          .logo-card {
-            width: 230px;
-            height: 230px;
-          }
-
-          .logo-card img {
-            width: 125px;
-            height: 125px;
-          }
-
-          .grid-lines {
-            width: 300px;
-            height: 300px;
-          }
-
-          .floating-label {
-            font-size: 7px;
-            padding: 10px;
-          }
-
-          .label-one {
-            top: 25px;
-            right: 0;
-          }
-
-          .label-two {
-            bottom: 25px;
-            left: 0;
-          }
-
-          .floating-number {
-            right: 10px;
-            bottom: 0;
-            font-size: 55px;
-          }
-
-          .scroll-indicator {
-            display: none;
-          }
-
-          .section-number {
-            margin-bottom: 45px;
-          }
-
-          h2 {
-            font-size: 45px;
-            letter-spacing: -3px;
-          }
-
-          .split {
-            gap: 45px;
-          }
-
-          .big {
-            font-size: 16px;
-          }
-
-          .mini-grid {
-            grid-template-columns: 1fr;
-            margin-top: 40px;
-          }
-
-          .mini-grid article {
-            padding: 18px 0;
-          }
-
-          .framework-head {
-            display: block;
-            margin-bottom: 45px;
-          }
-
-          .framework-head p {
-            margin-top: 25px;
-          }
-
-          .framework-card h3 {
-            margin-top: 65px;
-          }
-
-          .proof-banner {
-            min-height: 420px;
-            padding: 40px 25px;
-            display: block;
-          }
-
-          .proof-logo {
-            width: 150px;
-            height: 150px;
-            margin: 50px auto 0;
-          }
-
-          .proof-logo img {
-            width: 85px;
-            height: 85px;
-          }
-
-          .proof-decoration {
-            font-size: 130px;
-            bottom: -40px;
-          }
-
-          .testimonial-grid {
-            grid-template-columns: 1fr;
-            gap: 35px;
-          }
-
-          .testimonial-image {
-            aspect-ratio: 4 / 3;
-          }
-
-          .image-overlay {
-            opacity: 1;
-            transform: translateY(0);
-          }
-
-          .join-box {
-            padding: 45px 25px;
-            min-height: auto;
-          }
-
-          .join-content h2 {
-            font-size: 43px;
+          .market-title {
+            top: 255px;
+            right: 20px;
           }
 
           .join-float {
-            right: 15px;
-            bottom: 15px;
-            padding: 12px 14px;
+            right: 14px;
+            bottom: 14px;
           }
 
-          footer {
-            padding: 30px 6vw;
-            flex-direction: column;
-            gap: 10px;
-          }
-
-          .lightbox {
-            padding: 15px;
-          }
-
-          .lightbox-close {
-            top: 15px;
-            right: 20px;
+          .join-box h2,
+          .split h2,
+          .framework-head h2,
+          .portfolio-head h2,
+          .testimonials-head h2 {
+            font-size: 46px;
           }
         }
 
         @media (prefers-reduced-motion: reduce) {
+          html {
+            scroll-behavior: auto;
+          }
+
           *,
           *::before,
           *::after {
-            scroll-behavior: auto !important;
-            animation-duration: .01ms !important;
+            animation-duration: 0.01ms !important;
             animation-iteration-count: 1 !important;
-            transition-duration: .01ms !important;
+            transition-duration: 0.01ms !important;
           }
 
           .reveal {
@@ -1932,6 +1308,791 @@ export default function Home() {
           }
         }
       `}</style>
+
+      <div className="site">
+
+        {/* =========================
+            NAVIGATION
+        ========================= */}
+
+        <header className="topbar">
+
+          <a
+            href="#home"
+            className="brand"
+            onClick={closeMenu}
+          >
+            <img
+              src="/logo.jpg"
+              alt="Syntax Opinion"
+            />
+
+            <span className="brand-text">
+              <b>Syntax Opinion</b>
+              <small>Capital</small>
+            </span>
+          </a>
+
+          <nav className="desktop-nav">
+            <a href="#about">About</a>
+            <a href="#program">Framework</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="#join">Join</a>
+          </nav>
+
+          <button
+            className="menu-button"
+            aria-label="Open menu"
+            onClick={() => setMenuOpen(true)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+
+        </header>
+
+
+        {/* =========================
+            MOBILE DRAWER
+        ========================= */}
+
+        <div
+          className={`backdrop ${menuOpen ? "open" : ""}`}
+          onClick={closeMenu}
+        />
+
+        <aside className={`drawer ${menuOpen ? "open" : ""}`}>
+
+          <div className="drawer-head">
+            <span>MENU</span>
+
+            <button
+              onClick={closeMenu}
+              aria-label="Close menu"
+            >
+              ×
+            </button>
+          </div>
+
+          <a href="#home" onClick={closeMenu}>
+            01 / Home
+          </a>
+
+          <a href="#about" onClick={closeMenu}>
+            02 / About
+          </a>
+
+          <a href="#program" onClick={closeMenu}>
+            03 / Framework
+          </a>
+
+          <a href="#portfolio" onClick={closeMenu}>
+            04 / Portfolio
+          </a>
+
+          <a href="#testimonials" onClick={closeMenu}>
+            05 / Testimonials
+          </a>
+
+          <a href="#join" onClick={closeMenu}>
+            06 / Join Syntax Opinion
+          </a>
+
+        </aside>
+
+
+        <main>
+
+          {/* =========================
+              HERO
+          ========================= */}
+
+          <section
+            className="section hero"
+            id="home"
+          >
+
+            <div className="hero-grid">
+
+              <div className="hero-copy reveal">
+
+                <p className="eyebrow">
+                  <span />
+                  TRADING COMMUNITY · EST. 2026
+                </p>
+
+                <h1>
+                  Decode the market.
+                  <br />
+                  Build <em>your edge.</em>
+                </h1>
+
+                <p className="lead">
+                  Syntax Opinion Capital adalah komunitas edukasi trading
+                  yang menggabungkan fundamental, technical, geopolitics,
+                  market structure, dan risk management untuk membantu trader
+                  membangun proses yang lebih terukur.
+                </p>
+
+                <div className="actions">
+
+                  <a
+                    className="btn light"
+                    href="#join"
+                  >
+                    Join Syntax Opinion ↗
+                  </a>
+
+                  <a
+                    className="btn outline"
+                    href="#portfolio"
+                  >
+                    Explore Portfolio ›
+                  </a>
+
+                </div>
+
+                <div className="hero-points">
+
+                  <div>
+                    <b>01</b>
+                    <span>
+                      Fundamental
+                      <br />
+                      First
+                    </span>
+                  </div>
+
+                  <div>
+                    <b>02</b>
+                    <span>
+                      Technical
+                      <br />
+                      Context
+                    </span>
+                  </div>
+
+                  <div>
+                    <b>03</b>
+                    <span>
+                      Risk
+                      <br />
+                      Discipline
+                    </span>
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div className="hero-visual reveal delay">
+
+                <div className="orb" />
+
+                <div className="logo-card">
+
+                  <img
+                    src="/logo.jpg"
+                    alt="Syntax Opinion Capital"
+                  />
+
+                  <div className="scan" />
+
+                </div>
+
+                <div className="floating-label a">
+                  PROCESS
+                  <br />
+                  OVER PREDICTION
+                </div>
+
+                <div className="floating-label b">
+                  FUNDAMENTAL
+                  <br />
+                  → TECHNICAL
+                </div>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          {/* =========================
+              ABOUT
+          ========================= */}
+
+          <section
+            className="section"
+            id="about"
+          >
+
+            <div className="kicker reveal">
+              01 / ABOUT
+            </div>
+
+            <div className="split">
+
+              <h2 className="reveal">
+                From market noise
+                <br />
+                to market <em>clarity.</em>
+              </h2>
+
+              <div className="reveal delay">
+
+                <p className="big">
+                  Kami membangun ruang belajar untuk trader yang ingin
+                  memahami <strong>kenapa</strong> harga bergerak, bukan
+                  sekadar mengejar ke mana harga bergerak.
+                </p>
+
+                <p
+                  style={{
+                    color: "#777b87",
+                    fontSize: "12px",
+                    lineHeight: 1.8,
+                    maxWidth: "650px",
+                  }}
+                >
+                  Framework Syntax Opinion Capital berangkat dari pembacaan
+                  kondisi macro dan fundamental, lalu dikonfirmasi dengan
+                  technical analysis. Setiap ide tetap membutuhkan validasi,
+                  plan, dan risk management.
+                </p>
+
+                <div className="mini-grid">
+
+                  <article>
+                    <b>01</b>
+                    <h3>Process</h3>
+                    <p>
+                      Alur analisis yang dapat diulang.
+                    </p>
+                  </article>
+
+                  <article>
+                    <b>02</b>
+                    <h3>Context</h3>
+                    <p>
+                      Macro, geopolitics, dan price action.
+                    </p>
+                  </article>
+
+                  <article>
+                    <b>03</b>
+                    <h3>Discipline</h3>
+                    <p>
+                      Risk management dalam keputusan.
+                    </p>
+                  </article>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          {/* =========================
+              PROGRAM
+          ========================= */}
+
+          <section
+            className="section program"
+            id="program"
+          >
+
+            <div className="kicker reveal">
+              02 / PROGRAM
+            </div>
+
+            <div className="framework-head reveal">
+
+              <h2>
+                What we <em>decode.</em>
+              </h2>
+
+              <p>
+                Fundamental sebagai konteks utama, technical sebagai alat
+                membaca struktur dan timing.
+              </p>
+
+            </div>
+
+
+            <div className="framework-grid">
+
+              <article className="framework-card reveal">
+                <b>01</b>
+
+                <div className="framework-icon">
+                  ◎
+                </div>
+
+                <h3>
+                  Fundamental & Macro
+                </h3>
+
+                <p>
+                  Inflation, rates, central banks, labor data, USD, yields,
+                  dan macro narratives.
+                </p>
+              </article>
+
+
+              <article className="framework-card reveal delay">
+                <b>02</b>
+
+                <div className="framework-icon">
+                  ⌁
+                </div>
+
+                <h3>
+                  Technical Framework
+                </h3>
+
+                <p>
+                  Multi-timeframe, market structure, price action, SNR/SND,
+                  liquidity dan confirmation.
+                </p>
+              </article>
+
+
+              <article className="framework-card reveal delay2">
+                <b>03</b>
+
+                <div className="framework-icon">
+                  ↗
+                </div>
+
+                <h3>
+                  Risk Management
+                </h3>
+
+                <p>
+                  RR, position sizing, trading plan, drawdown control dan
+                  execution discipline.
+                </p>
+              </article>
+
+
+              <article className="framework-card reveal delay3">
+                <b>04</b>
+
+                <div className="framework-icon">
+                  ◌
+                </div>
+
+                <h3>
+                  Market Perspective
+                </h3>
+
+                <p>
+                  Geopolitics dan global events diterjemahkan menjadi market
+                  narrative yang lebih terstruktur.
+                </p>
+              </article>
+
+            </div>
+
+          </section>
+
+
+          {/* =========================
+              PORTFOLIO
+          ========================= */}
+
+          <section
+            className="section portfolio"
+            id="portfolio"
+          >
+
+            <div className="portfolio-head reveal">
+
+              <div className="kicker">
+                03 / PORTFOLIO
+              </div>
+
+              <h2>
+                Our work,
+                <br />
+                our <em>framework.</em>
+              </h2>
+
+            </div>
+
+
+            <div className="portfolio-grid">
+
+              <article className="market-card reveal">
+
+                <div className="market-card-top">
+                  XAUUSD · USD · YIELDS · RISK
+                </div>
+
+                <div className="market-map">
+
+                  <span className="bar" style={{ height: "34%" }} />
+                  <span className="bar" style={{ height: "43%" }} />
+                  <span className="bar" style={{ height: "38%" }} />
+                  <span className="bar" style={{ height: "57%" }} />
+                  <span className="bar" style={{ height: "48%" }} />
+                  <span className="bar" style={{ height: "70%" }} />
+                  <span className="bar" style={{ height: "61%" }} />
+                  <span className="bar" style={{ height: "78%" }} />
+                  <span className="bar" style={{ height: "55%" }} />
+                  <span className="bar" style={{ height: "73%" }} />
+                  <span className="bar" style={{ height: "64%" }} />
+                  <span className="bar" style={{ height: "83%" }} />
+
+                </div>
+
+                <div className="market-title">
+                  MARKET MAP
+                </div>
+
+                <div className="market-info">
+
+                  <small>
+                    DAILY ANALYSIS
+                  </small>
+
+                  <h3>
+                    Fundamental → Technical → Execution
+                  </h3>
+
+                  <p>
+                    Portofolio konten edukasi dan market analysis yang
+                    dirancang untuk mengubah data menjadi kerangka berpikir
+                    yang mudah dipahami.
+                  </p>
+
+                </div>
+
+              </article>
+
+
+              <div className="portfolio-side">
+
+                <a
+                  href="#join"
+                  className="portfolio-link reveal delay"
+                >
+                  <small>
+                    COMMUNITY
+                  </small>
+
+                  <strong>
+                    Syntax Opinion Public Group
+                  </strong>
+
+                  <span>
+                    WhatsApp / Telegram · Join free
+                  </span>
+
+                  <span>
+                    ↗
+                  </span>
+                </a>
+
+
+                <a
+                  href="#join"
+                  className="portfolio-link reveal delay2"
+                >
+                  <small>
+                    PREMIUM
+                  </small>
+
+                  <strong>
+                    Syntax Opinion Capital
+                  </strong>
+
+                  <span>
+                    Structured learning & market discussion
+                  </span>
+
+                  <span>
+                    ↗
+                  </span>
+                </a>
+
+
+                <a
+                  href="#join"
+                  className="portfolio-link reveal delay3"
+                >
+                  <small>
+                    PARTNERSHIP
+                  </small>
+
+                  <strong>
+                    ULTIMA / Broker Link
+                  </strong>
+
+                  <span>
+                    Collaboration & affiliate inquiries
+                  </span>
+
+                  <span>
+                    ↗
+                  </span>
+                </a>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          {/* =========================
+              TESTIMONIALS
+          ========================= */}
+
+          <section
+            className="section testimonials"
+            id="testimonials"
+          >
+
+            <div className="kicker reveal">
+              04 / TESTIMONIALS
+            </div>
+
+            <div className="testimonials-head reveal">
+
+              <h2>
+                Built with the
+                <br />
+                <em>community.</em>
+              </h2>
+
+              <p>
+                Dokumentasi diskusi, outlook, analisis, dan hasil pembelajaran
+                dari komunitas. Ditampilkan sebagai dokumentasi komunitas,
+                bukan jaminan hasil trading.
+              </p>
+
+            </div>
+
+
+            <div className="testimonial-grid">
+
+              {testimonials.map((item, index) => (
+
+                <article
+                  key={item.image}
+                  className={`testimonial-card reveal ${
+                    index % 2 === 1 ? "delay" : ""
+                  }`}
+                  onClick={() => setLightbox(item.image)}
+                >
+
+                  <div className="testimonial-image">
+
+                    <img
+                      src={item.image}
+                      alt={`Dokumentasi komunitas ${index + 1}`}
+                      loading="lazy"
+                    />
+
+                    <div className="image-number">
+                      {String(index + 1).padStart(2, "0")}
+                    </div>
+
+                    <div className="image-overlay">
+                      VIEW IMAGE ↗
+                    </div>
+
+                  </div>
+
+                  <div className="card-meta">
+
+                    <span>
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+
+                    <b>
+                      {item.title}
+                    </b>
+
+                  </div>
+
+                </article>
+
+              ))}
+
+            </div>
+
+          </section>
+
+
+          {/* =========================
+              JOIN
+          ========================= */}
+
+          <section
+            className="section join"
+            id="join"
+          >
+
+            <div className="join-box reveal">
+
+              <div>
+
+                <p className="eyebrow">
+                  <span />
+                  SYNTAX OPINION CAPITAL
+                </p>
+
+                <h2>
+                  Ready to decode
+                  <br />
+                  the <em>market?</em>
+                </h2>
+
+                <p>
+                  Gabung ke ekosistem Syntax Opinion Capital dan bangun
+                  proses trading yang lebih terstruktur.
+                </p>
+
+                <div className="actions">
+
+                  <a
+                    className="btn light"
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+
+                      /*
+                       * GANTI LINK DI SINI
+                       *
+                       * Contoh:
+                       * https://chat.whatsapp.com/XXXXXXXX
+                       *
+                       * atau Telegram:
+                       * https://t.me/XXXXXXXX
+                       */
+
+                      window.open(
+                        "https://wa.me/",
+                        "_blank"
+                      );
+                    }}
+                  >
+                    WhatsApp Community ↗
+                  </a>
+
+                  <a
+                    className="btn outline"
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+
+                      window.open(
+                        "https://instagram.com/",
+                        "_blank"
+                      );
+                    }}
+                  >
+                    Instagram ↗
+                  </a>
+
+                </div>
+
+                <small className="join-note">
+                  Ganti link WhatsApp dan Instagram dengan link asli Anda.
+                </small>
+
+              </div>
+
+
+              <img
+                className="join-logo"
+                src="/logo.jpg"
+                alt="Syntax Opinion Capital"
+              />
+
+            </div>
+
+          </section>
+
+        </main>
+
+
+        {/* =========================
+            FLOATING JOIN
+        ========================= */}
+
+        <a
+          href="#join"
+          className="join-float"
+        >
+          JOIN SYNTAX OPINION
+          <b>
+            ↗
+          </b>
+        </a>
+
+
+        {/* =========================
+            LIGHTBOX
+        ========================= */}
+
+        {lightbox && (
+
+          <div
+            className="lightbox"
+            onClick={() => setLightbox(null)}
+          >
+
+            <button
+              className="lightbox-close"
+              onClick={() => setLightbox(null)}
+              aria-label="Close image"
+            >
+              ×
+            </button>
+
+            <img
+              src={lightbox}
+              alt="Testimonial"
+              onClick={(e) => e.stopPropagation()}
+            />
+
+          </div>
+
+        )}
+
+
+        {/* =========================
+            FOOTER
+        ========================= */}
+
+        <footer>
+
+          <span>
+            SYNTAX OPINION CAPITAL
+          </span>
+
+          <span>
+            NO ERROR. ONLY TRUE CODE.
+          </span>
+
+          <span>
+            © 2026
+          </span>
+
+        </footer>
+
+      </div>
     </>
   );
 }
