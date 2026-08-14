@@ -1721,3 +1721,48 @@ footer {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* =========================
+   MOBILE HEADER FIX
+========================= */
+
+@media (max-width: 768px) {
+
+  .topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 72px;
+    z-index: 1000;
+    overflow: visible;
+  }
+
+  .brand {
+    position: relative;
+    z-index: 1002;
+    max-width: calc(100% - 90px);
+    overflow: visible;
+  }
+
+  .brand span {
+    white-space: nowrap;
+  }
+
+  .menu-float {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 1100;
+  }
+
+  .drawer {
+    z-index: 1200;
+  }
+
+  .backdrop {
+    z-index: 1150;
+  }
+
+}
+
